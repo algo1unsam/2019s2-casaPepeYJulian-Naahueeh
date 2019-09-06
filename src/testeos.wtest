@@ -1,0 +1,32 @@
+import cuentas.*
+import cosas.* 
+import casa.* 
+
+describe "cuentas" {
+	
+	fixture{
+		cuentaCorriente.depositar(1000)		
+	}
+	
+	test "sacar 900"{
+		cuentaCorriente.extraer(900)
+		assert.equals(100,cuentaCorriente.saldo())	
+	}
+	test "sacar 1200"{	
+		assert.throwsException({cuentaCorriente.extraer(1200)})
+	}	
+	test "comprar asado"{
+		casaDePepeYJulian.asignarCuenta(cuentaCorriente)
+		casaDePepeYJulian.comprar(tiraDeAsado)
+		assert.equals(650,cuentaCorriente.saldo())
+		assert.equals(1,casaDePepeYJulian.cosas().size())
+		assert.that(casaDePepeYJulian.cosas().contains(tiraDeAsado))	
+	}
+	test "comprar plancha"{
+		casaDePepeYJulian.asignarCuenta(cuentaCorriente)
+		assert.throwsException({casaDePepeYJulian.comprar(plancha)})
+		assert.equals(1000,cuentaCorriente.saldo())
+		assert.equals(0,casaDePepeYJulian.cosas().size())
+		assert.notThat(casaDePepeYJulian.cosas().contains(plancha))		
+	}
+}
