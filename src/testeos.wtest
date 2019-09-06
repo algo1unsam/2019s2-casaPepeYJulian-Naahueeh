@@ -14,6 +14,8 @@ describe "cuentas" {
 	}
 	test "sacar 1200"{	
 		assert.throwsException({cuentaCorriente.extraer(1200)})
+		assert.throwsExceptionWithMessage("Saldo Insuficiente", {cuentaCorriente.extraer(1200)})
+		assert.equals(1000,cuentaCorriente.saldo())
 	}	
 	test "comprar asado"{
 		casaDePepeYJulian.asignarCuenta(cuentaCorriente)

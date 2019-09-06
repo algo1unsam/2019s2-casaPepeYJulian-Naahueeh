@@ -3,8 +3,8 @@ import cuentas.*
  
 object casaDePepeYJulian {
 	const cosas = []
-	const listado = [heladera,cama,tiraDeAsado,paqueteDeFideos,plancha]
 	var queCuenta
+	var faltantes = #{}
 	
 	method asignarCuenta(cuenta){
 		queCuenta=cuenta
@@ -42,14 +42,14 @@ object casaDePepeYJulian {
 		
 	} //indica si todas las cosas compradas son comida.
 	method queFaltaComprar(lista){
-		
+		faltantes = lista.difference(self.cosas().asSet())
+		return faltantes
 	} /*  recibe una lista de cosas y devuelve las cosas de esa lista que aún no se han comprado. 
 		Atención: es una pregunta. No se pide que se compren.*/
 	method faltaComida(){
 		
 	} //indica si se han comprado menos de 2 cosas que son comida.
 	method comprarLoQueFalta(){
-		listado.forEach{cosa=>if(!cosas.contains(cosa)){self.comprar(cosa)}}
-			
+		faltantes.forEach{cosa=>self.comprar(cosa)}	
 	}
 }
